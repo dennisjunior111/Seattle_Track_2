@@ -62,4 +62,5 @@ if __name__ == "__main__":  # Only run if this file is called directly
             "AIS_2017_12_Zone11.zip"]
     
     for filename in FILES:
-        download_file(BASE_URL + filename)
+        if 'Zone17.zip' in filename:
+            download_file(BASE_URL + filename)
