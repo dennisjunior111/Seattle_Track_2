@@ -1,11 +1,7 @@
-# Submission Folder
+# AIS FILTER POSTGRESQL
 
-<p align="center">
-  <img src="https://static1.squarespace.com/static/596d24cd4402430bb863ffad/t/5b41e62603ce641f98f2e3cd/1536741696061/?format=1500w" width="350" title="hover text">
-</p>
+Before much of the machine learning could be done, there was a dire need to filter raw AIS data for potential interactions. COLREGS interactions potentially occur when one or more ships are within viewing distance of one another. To answer the question "what ships are within sight of a single ship given a time interval" is a difficult question. Our team developed a filtering method using POSTGRESQL and POSTGIS to find pairs of ships who are within a visual distance of one another given a time period.
 
-### This is the folder where your code and any other things you want the judgest to see should be included.
+POSTGRESQL was stood up on AWS RDS for the project. We used the POSTGIS extention to manipulate GIS related data very quickly. AIS data was uploaded into the database as a single table. Unique MMSIs were identified and were aggregated into hour intervals via Python. Each row represented the path of a ship during a single hour. Several statistics were calculated related to speed, time, location, etc. Most importantly we created objects of type geometry representing the path of the ship during that time interval. The geometry is created by the path of the ship (points) with a 4 nautical mile (converted into meters) buffer extended around the path. These geometries were indexed and allowed for overlap (intersection) queries to be quickly made. This index, via R-trees, allows us to identify possible interactions between ships without exponential pair-wise comparisons.
 
-<p align="center">
-  <img src="https://static.wixstatic.com/media/3d35e8_2d9eb95a4abe4869afafbf51d29038dc~mv2.png/v1/fill/w_288,h_60,al_c,usm_0.66_1.00_0.01/3d35e8_2d9eb95a4abe4869afafbf51d29038dc~mv2.png" width="150" title="hover text">
-</p>
+This filtered data was then ingested by our machine learning team for additional filtering, noise reduction, enrichment, and ingestion into various machine learning algorithms.
