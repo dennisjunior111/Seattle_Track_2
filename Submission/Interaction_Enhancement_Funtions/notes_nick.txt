@@ -1,0 +1,10 @@
+back_difference_header_angle = None;
+    if math.radians(360) > back_angle_from_north > math.radians(270):
+        back_difference_header_angle = (math.radians(360) - angle) + math.radians(90);    
+    # left side of circle is 0 to -180
+    elif math.radians(270) >= back_angle_from_north >= math.radians(90):
+        back_difference_header_angle = (-1 * angle) - math.radians(90);
+    # right side of circle 0 to 180
+    elif math.radians(90) > back_angle_from_north >= math.radians(0):
+        back_vessel_north_angle = (-1 * angle) + math.radians(90);
+    
