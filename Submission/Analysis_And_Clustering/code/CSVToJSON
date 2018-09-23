@@ -1,0 +1,4 @@
+import-csv "AIS_2017_01_Zone17.csv" | ConvertTo-Json | Add-Content -Path "zone17.json"
+
+
+2:47
